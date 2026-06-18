@@ -1,0 +1,31 @@
+name: Selenium E2E Login Testing
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      VITE_SUPABASE_URL: https://dummy-supabase-url.supabase.co
+      VITE_SUPABASE_PUBLISHABLE_KEY: dummy-supabase-publishable-key
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run E2E Tests with Selenium
+        run: npx start-server-and-test 'npm run dev' http://localhost:5173 'npm run login'
