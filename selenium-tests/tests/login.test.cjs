@@ -13,10 +13,7 @@ describe("Login E2E Test", function () {
     options.addArguments("--disable-dev-shm-usage");
     options.addArguments("--window-size=1280,1024");
 
-    driver = await new Builder()
-      .forBrowser("chrome")
-      .setChromeOptions(options)
-      .build();
+    driver = await new Builder().forBrowser("chrome").setChromeOptions(options).build();
   });
 
   after(async function () {
@@ -45,7 +42,9 @@ describe("Login E2E Test", function () {
     }
 
     if (!pageLoaded) {
-      throw new Error(`Failed to connect to local server on ports ${ports.join(", ")}. Last error: ${lastError?.message}`);
+      throw new Error(
+        `Failed to connect to local server on ports ${ports.join(", ")}. Last error: ${lastError?.message}`,
+      );
     }
 
     // Find the email input, password input, and login button
@@ -66,7 +65,7 @@ describe("Login E2E Test", function () {
     const currentUrl = await driver.getCurrentUrl();
     assert.ok(
       currentUrl.includes("/dashboard"),
-      `Expected URL to contain /dashboard but got ${currentUrl}`
+      `Expected URL to contain /dashboard but got ${currentUrl}`,
     );
   });
 });
